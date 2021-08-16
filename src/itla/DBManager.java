@@ -1,4 +1,5 @@
 package itla;
+
 import java.sql.*;
 
 class DBManager {
@@ -34,7 +35,7 @@ class DBManager {
             this.pstmnt.setTime(4, e.getHoraInicio());
             this.pstmnt.setTime(5, e.getHoraFin());
             this.pstmnt.executeUpdate();
-            
+
             this.pstmnt.close();
             System.out.println("Registro agregado");
         } catch (SQLException ex) {
@@ -43,46 +44,38 @@ class DBManager {
     }
 
     void updateRegistro(int id, Evento e) {
-        //this.query = ("UPDATE Eventos SET Nombre = ?, "
-        //                                          + "Detalle = ?, "
-        //                                          + "Fecha = ?, "
-        //                                          + "HoraInicio = ?, "
-        //                                          + "HoraFin = ? "
-        //                                          + "WHERE IdEvento = " + id
-        this.query = ("UPDATE Eventos SET Nombre = ?, "
-                                        + "Detalle = ?, "
-                                        + "Fecha = ? "
-                                        + "WHERE IdEvento = " + id);
-  
+        this.query = "UPDATE Eventos SET Nombre = ?, Detalle = ?, Fecha = ?, HoraInicio = ?, HoraFin = ? WHERE IdEvento = " + id;
+
         String selectQuery = "SELECT Nombre, Detalle, Fecha, HoraInicio, HoraFin FROM Eventos WHERE IdEvento = " + id;
 
         try {
             this.stmnt = this.conn.createStatement();
             this.pstmnt = this.conn.prepareStatement(this.query);
-            
+
             this.rs = this.stmnt.executeQuery(selectQuery);
             this.rs.next();
             String n = this.rs.getString("Nombre");
             String d = this.rs.getString("Detalle");
             Date f = this.rs.getDate("Fecha");
-            //Time hI = this.rs.getTime("HoraInicio");
-            //Time hF = this.rs.getTime("HoraFin");
+            Time hI = this.rs.getTime("HoraInicio");
+            Time hF = this.rs.getTime("HoraFin");
 
-            n = (e.getNombre() == "") ? n : e.getNombre();
-            d = (e.getDetalle() == "") ? d : e.getDetalle();
-            f = (String.valueOf(e.getFecha()) == "") ? f : e.getFecha();
-            //hI = (e.getHoraInicio() == "") ? hI : e.getHoraInicio();
-            //hF = (e.getHoraFin() == "") ? hF : e.getHoraFin();
+            n = (e.getNombre().isEmpty() || e.getNombre() == null) ? n : e.getNombre();
+            d = (e.getDetalle().isEmpty() || e.getDetalle() == null) ? d : e.getDetalle();
+            f = (e.getFecha() == null) ? f : e.getFecha();
+            hI = (e.getHoraInicio() == null) ? hI : e.getHoraInicio();
+            hF = (e.getHoraFin() == null) ? hF : e.getHoraFin();
 
             this.pstmnt.setString(1, n);
             this.pstmnt.setString(2, d);
             this.pstmnt.setDate(3, f);
-            //this.pstmnt.setTime(4, hI);
-            //this.pstmnt.setTime(5, hF);
+            this.pstmnt.setTime(4, hI);
+            this.pstmnt.setTime(5, hF);
+
             this.pstmnt.executeUpdate();
-            
             this.stmnt.close();
             this.pstmnt.close();
+
             System.out.println("Registro actualizado");
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());

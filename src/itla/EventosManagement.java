@@ -11,8 +11,8 @@ class EventosManagement {
         DBManager dbm = new DBManager();
         Evento e = null;
 
-        String n = "test 1.1.1";
-        String d = "zxcvbnm";
+        String n = "Test 11";
+        String d = "still workin!";
         Time hI = null;
         Time hF = null;
         Date f = null;
@@ -20,13 +20,13 @@ class EventosManagement {
         try {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             hI = new Time(timeFormat.parse("18:00").getTime());
-            hF = new Time(timeFormat.parse("21:00").getTime());
-            f = Date.valueOf("2021-08-14");
+            hF = new Time(timeFormat.parse("20:00").getTime());
+            f = Date.valueOf("2021-08-16");
         } catch (ParseException pe) {
             System.out.println("ParseException: " + pe.getMessage());
         }
         
-        e = new Evento (n);
+        e = new Evento (n,d,f,hI,hF);
         
         //dbm.insertRegistro(e);
         //dbm.deleteRegistro(1);
