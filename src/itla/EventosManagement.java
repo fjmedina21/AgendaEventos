@@ -14,7 +14,6 @@ class EventosManagement {
     }
 
     void createEvento(String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
-
         try {
             String n = nombre;
             String d = detalle;
@@ -30,11 +29,29 @@ class EventosManagement {
         } catch (ParseException pe) {
             System.out.println("ParseException: " + pe.getMessage());
         }
-
     }
 
-    void updateEvento() {
-        //TODO: 
+    void deleteEvento(int id) {
+        this.dbm.deleteRegistro(id);
+    }
+
+    void updateEvento(int id, String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
+        try {
+            String n = nombre;
+            String d = detalle;
+            String l = lugar;
+            
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            Time hI = (horaInicio == null) ? null : new Time(timeFormat.parse(horaInicio).getTime());
+            Time hF = (horaFin == null) ? null : new Time(timeFormat.parse(horaFin).getTime());
+            Date f = (fecha == null) ? null : Date.valueOf(fecha);
+
+            Evento e = new Evento(n, d, l, f, hI, hF);
+            this.dbm.updateRegistro(id,e);
+        } catch (ParseException pe) {
+            System.out.println("ParseException: " + pe.getMessage());
+        }
+        
     }
 
 }
