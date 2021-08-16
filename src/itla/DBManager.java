@@ -1,5 +1,4 @@
 package itla;
-
 import java.sql.*;
 
 class DBManager {
@@ -14,7 +13,7 @@ class DBManager {
     private String user = "root";
     private String password = "";
 
-    public DBManager() {
+    DBManager() {
         try {
             conn = DriverManager.getConnection(this.url, this.user, this.password);
             System.out.println("Conectado a " + this.url);
@@ -24,16 +23,17 @@ class DBManager {
     }
 
     void insertRegistro(Evento e) {
-        this.query = "INSERT INTO Eventos (Nombre, Detalle, Fecha, HoraInicio, HoraFin) VALUES (?,?,?,?,?)";
+        this.query = "INSERT INTO Eventos (Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin) VALUES (?,?,?,?,?,?)";
 
         try {
             this.pstmnt = this.conn.prepareStatement(this.query);
 
             this.pstmnt.setString(1, e.getNombre());
             this.pstmnt.setString(2, e.getDetalle());
-            this.pstmnt.setDate(3, e.getFecha());
-            this.pstmnt.setTime(4, e.getHoraInicio());
-            this.pstmnt.setTime(5, e.getHoraFin());
+            this.pstmnt.setString(3, e.getLugar());
+            this.pstmnt.setDate(4, e.getFecha());
+            this.pstmnt.setTime(5, e.getHoraInicio());
+            this.pstmnt.setTime(6, e.getHoraFin());
             this.pstmnt.executeUpdate();
 
             this.pstmnt.close();
@@ -44,9 +44,9 @@ class DBManager {
     }
 
     void updateRegistro(int id, Evento e) {
-        this.query = "UPDATE Eventos SET Nombre = ?, Detalle = ?, Fecha = ?, HoraInicio = ?, HoraFin = ? WHERE IdEvento = " + id;
+        this.query = "UPDATE Eventos SET Nombre = ?, Detalle = ?, Lugar = ?, Fecha = ?, HoraInicio = ?, HoraFin = ? WHERE IdEvento = " + id;
 
-        String selectQuery = "SELECT Nombre, Detalle, Fecha, HoraInicio, HoraFin FROM Eventos WHERE IdEvento = " + id;
+        String selectQuery = "SELECT Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin FROM Eventos WHERE IdEvento = " + id;
 
         try {
             this.stmnt = this.conn.createStatement();
@@ -56,23 +56,26 @@ class DBManager {
             this.rs.next();
             String n = this.rs.getString("Nombre");
             String d = this.rs.getString("Detalle");
+            String l = this.rs.getString("Lugar");
             Date f = this.rs.getDate("Fecha");
             Time hI = this.rs.getTime("HoraInicio");
             Time hF = this.rs.getTime("HoraFin");
 
             n = (e.getNombre().isEmpty() || e.getNombre() == null) ? n : e.getNombre();
             d = (e.getDetalle().isEmpty() || e.getDetalle() == null) ? d : e.getDetalle();
+            l = (e.getLugar().isEmpty() || e.getLugar() == null) ? l : e.getLugar();
             f = (e.getFecha() == null) ? f : e.getFecha();
             hI = (e.getHoraInicio() == null) ? hI : e.getHoraInicio();
             hF = (e.getHoraFin() == null) ? hF : e.getHoraFin();
 
             this.pstmnt.setString(1, n);
             this.pstmnt.setString(2, d);
-            this.pstmnt.setDate(3, f);
-            this.pstmnt.setTime(4, hI);
-            this.pstmnt.setTime(5, hF);
-
+            this.pstmnt.setString(3, l);
+            this.pstmnt.setDate(4,f);
+            this.pstmnt.setTime(5, hI);
+            this.pstmnt.setTime(6, hF);
             this.pstmnt.executeUpdate();
+            
             this.stmnt.close();
             this.pstmnt.close();
 

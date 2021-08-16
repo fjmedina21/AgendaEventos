@@ -7,29 +7,34 @@ import java.text.SimpleDateFormat;
 
 class EventosManagement {
 
-    public static void main(String[] args) {
-        DBManager dbm = new DBManager();
-        Evento e = null;
+    DBManager dbm = null;
 
-        String n = "Test 11";
-        String d = "still workin!";
-        Time hI = null;
-        Time hF = null;
-        Date f = null;
+    EventosManagement() {
+        this.dbm = new DBManager();
+    }
+
+    void createEvento(String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
 
         try {
+            String n = nombre;
+            String d = detalle;
+            String l = lugar;
+
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            hI = new Time(timeFormat.parse("18:00").getTime());
-            hF = new Time(timeFormat.parse("20:00").getTime());
-            f = Date.valueOf("2021-08-16");
+            Time hI = new Time(timeFormat.parse(horaInicio).getTime());
+            Time hF = new Time(timeFormat.parse(horaFin).getTime());
+            Date f = Date.valueOf(fecha);
+
+            Evento e = new Evento(n, d, l, f, hI, hF);
+            this.dbm.insertRegistro(e);
         } catch (ParseException pe) {
             System.out.println("ParseException: " + pe.getMessage());
         }
-        
-        e = new Evento (n,d,f,hI,hF);
-        
-        //dbm.insertRegistro(e);
-        //dbm.deleteRegistro(1);
-        dbm.updateRegistro(2, e);
+
     }
+
+    void updateEvento() {
+        //TODO: 
+    }
+
 }

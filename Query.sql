@@ -1,5 +1,6 @@
 CREATE DATABASE AgendaEventos;
 USE AgendaEventos;
+-- truncate Eventos;
 
 CREATE TABLE IF NOT EXISTS Eventos(
 							IdEvento INT NOT NULL AUTO_INCREMENT,
@@ -11,5 +12,4 @@ CREATE TABLE IF NOT EXISTS Eventos(
                      PRIMARY KEY (IdEvento)
 							);
                      
-SELECT * FROM Eventos WHERE IdEvento = 1 ;
-truncate Eventos;
+SELECT * FROM Eventos;

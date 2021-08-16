@@ -5,18 +5,19 @@ import java.sql.Time;
 public class Evento {
     private String nombre;
     private String detalle;
+    private String lugar;
     private Date fecha;
     private Time horaInicio;
     private Time horaFin;
 
-    public Evento(String nombre, String detalle, Date fecha, Time horaInicio, Time horaFin) {
+    Evento(String nombre, String detalle, String lugar, Date fecha, Time horaInicio, Time horaFin) {
         this.nombre = nombre;
         this.detalle = detalle;
+        this.lugar = lugar;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
     }
-
 
     String getNombre() {
         return nombre;
@@ -25,7 +26,11 @@ public class Evento {
     String getDetalle() {
         return detalle;
     }
-
+    
+    String getLugar() {
+        return lugar;
+    }
+    
     Date getFecha() {
         
         return fecha;
@@ -38,15 +43,4 @@ public class Evento {
     Time getHoraFin() {
         return horaFin;
     }
-    
-    //    public String getHoraInicio() {
-    //        String strHI = String.(this.getHoraInicio());
-    //        
-    //        return strHI;
-    //    }
-
-    //    public Time getHoraFin() {
-    //        return horaFin;
-    //    }
-   
 }
