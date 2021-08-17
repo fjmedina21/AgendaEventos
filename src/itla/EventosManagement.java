@@ -37,11 +37,12 @@ class EventosManagement {
 
     void updateEvento(int id, String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
         try {
-            String n = nombre;
-            String d = detalle;
-            String l = lugar;
-            
+            String n = (nombre.isEmpty()) ? null : nombre;
+            String d =  (detalle.isEmpty()) ? null : detalle;
+            String l = (lugar.isEmpty()) ? null : lugar;
+           
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            
             Time hI = (horaInicio == null) ? null : new Time(timeFormat.parse(horaInicio).getTime());
             Time hF = (horaFin == null) ? null : new Time(timeFormat.parse(horaFin).getTime());
             Date f = (fecha == null) ? null : Date.valueOf(fecha);
@@ -50,8 +51,7 @@ class EventosManagement {
             this.dbm.updateRegistro(id,e);
         } catch (ParseException pe) {
             System.out.println("ParseException: " + pe.getMessage());
-        }
-        
+        }  
     }
 
 }
