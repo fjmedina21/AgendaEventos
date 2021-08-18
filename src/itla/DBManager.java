@@ -4,10 +4,10 @@ import java.sql.*;
 
 class DBManager {
 
-    //private String url = "jdbc:mysql://localhost/agendaeventos?"; //Laptop
-    private String url = "jdbc:mysql://localhost:3307/agendaeventos?"; //Desktop
-    private String user = "root";
-    private String password = "";
+    //private final String url = "jdbc:mysql://localhost/agendaeventos?"; //Laptop
+    private final String url = "jdbc:mysql://localhost:3307/agendaeventos?"; //Desktop
+    private final String  user = "root";
+    private final String password = "";
     private Connection conn;
 
     void connectDB() {
