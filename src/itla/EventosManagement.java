@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 class EventosManagement {
 
@@ -50,4 +51,23 @@ class EventosManagement {
         }
     }
 
+    List<Evento> searchEvento() {
+        List<Evento> resultado = dbm.readRegistro();
+        return resultado;
+    }
+
+    List<Evento> searchEventoByNombre(String nombre) {
+        List<Evento> resultado = dbm.readRegistroByNombre(nombre);
+        return resultado;
+    }
+
+    List<Evento> searchEventoByDetalle(String detalle) {
+        List<Evento> resultado = dbm.readRegistroByDetalle(detalle);
+        return resultado;
+    }
+
+    List<Evento> searchEventoByFecha(String fecha) {
+        List<Evento> resultado = dbm.readRegistroByFecha(Date.valueOf(fecha));
+        return resultado;
+    }
 }

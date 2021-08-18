@@ -1,12 +1,14 @@
 package itla;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class DBManager {
 
     //private final String url = "jdbc:mysql://localhost/agendaeventos?"; //Laptop
     private final String url = "jdbc:mysql://localhost:3307/agendaeventos?"; //Desktop
-    private final String  user = "root";
+    private final String user = "root";
     private final String password = "";
     private Connection conn;
 
@@ -43,7 +45,7 @@ class DBManager {
             pstmnt.setTime(5, e.getHoraInicio());
             pstmnt.setTime(6, e.getHoraFin());
             pstmnt.executeUpdate();
-            
+
             pstmnt.close();
             System.out.println("Registro agregado");
             this.disconnectDB();
@@ -59,7 +61,7 @@ class DBManager {
 
         String updateSQL = "UPDATE Eventos SET Nombre = ?, Detalle = ?, Lugar = ?, Fecha = ?, HoraInicio = ?, HoraFin = ? WHERE IdEvento = " + id;
         String selectSQL = "SELECT Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin FROM Eventos WHERE IdEvento = " + id;
-        
+
         String n = "";
         String d = "";
         String l = "";
@@ -81,7 +83,7 @@ class DBManager {
                 hI = rs.getTime("HoraInicio");
                 hF = rs.getTime("HoraFin");
             }
-            
+
             n = (e.getNombre() == null) ? n : e.getNombre();
             d = (e.getDetalle() == null) ? d : e.getDetalle();
             l = (e.getLugar() == null) ? l : e.getLugar();
@@ -96,7 +98,7 @@ class DBManager {
             pstmnt.setTime(5, hI);
             pstmnt.setTime(6, hF);
             pstmnt.executeUpdate();
-            
+
             stmnt.close();
             pstmnt.close();
             System.out.println("Registro actualizado");
@@ -113,9 +115,9 @@ class DBManager {
         try {
             this.connectDB();
             stmnt = this.conn.createStatement();
-            
+
             stmnt.executeUpdate(deleteSQL);
-            
+
             stmnt.close();
             System.out.println("Registro eliminado");
             this.disconnectDB();
@@ -124,4 +126,145 @@ class DBManager {
         }
     }
 
+    List<Evento> readRegistro() {
+        Statement stmnt;
+        ResultSet rs;
+        List<Evento> eventos = new ArrayList<>();
+
+        String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos";
+
+        try {
+            this.connectDB();
+            stmnt = this.conn.createStatement();
+            rs = stmnt.executeQuery(selectSQL);
+
+            while (rs.next()) {
+                eventos.add(new Evento(
+                        rs.getInt("IdEvento"),
+                        rs.getString("Nombre"),
+                        rs.getString("Detalle"),
+                        rs.getString("Lugar"),
+                        rs.getDate("Fecha"),
+                        rs.getTime("HoraInicio"),
+                        rs.getTime("HoraFin"))
+                );
+            }
+
+            stmnt.close();
+            rs.close();
+            this.disconnectDB();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+
+        return eventos;
+    }
+
+    List<Evento> readRegistroByFecha(Date fecha) {
+        Statement stmnt;
+        ResultSet rs;
+        List<Evento> eventos = new ArrayList<>();
+
+        String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos where Fecha = '" + fecha + "'";
+
+        try {
+            this.connectDB();
+            stmnt = this.conn.createStatement();
+            rs = stmnt.executeQuery(selectSQL);
+
+            if (rs.next()) {
+                eventos.add(new Evento(
+                        rs.getInt("IdEvento"),
+                        rs.getString("Nombre"),
+                        rs.getString("Detalle"),
+                        rs.getString("Lugar"),
+                        rs.getDate("Fecha"),
+                        rs.getTime("HoraInicio"),
+                        rs.getTime("HoraFin"))
+                );
+            } else {
+                System.out.println("No se encontraron eventos en esta fecha");
+            }
+
+            stmnt.close();
+            rs.close();
+            this.disconnectDB();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+
+        return eventos;
+    }
+
+    List<Evento> readRegistroByNombre(String nombre) {
+        Statement stmnt;
+        ResultSet rs;
+        List<Evento> eventos = new ArrayList<>();
+
+        String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos WHERE Nombre = '" + nombre + "'";
+
+        try {
+            this.connectDB();
+            stmnt = this.conn.createStatement();
+            rs = stmnt.executeQuery(selectSQL);
+
+            if (rs.next()) {
+                eventos.add(new Evento(
+                        rs.getInt("IdEvento"),
+                        rs.getString("Nombre"),
+                        rs.getString("Detalle"),
+                        rs.getString("Lugar"),
+                        rs.getDate("Fecha"),
+                        rs.getTime("HoraInicio"),
+                        rs.getTime("HoraFin"))
+                );
+            } else {
+                System.out.println("No se encontraron eventos con este nombre");
+            }
+
+            stmnt.close();
+            rs.close();
+            this.disconnectDB();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+
+        return eventos;
+    }
+
+    List<Evento> readRegistroByDetalle(String detalle) {
+        Statement stmnt;
+        ResultSet rs;
+        List<Evento> eventos = new ArrayList<>();
+
+        String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos where Detalle like '%" + detalle + "%'";
+
+        try {
+            this.connectDB();
+            stmnt = this.conn.createStatement();
+            rs = stmnt.executeQuery(selectSQL);
+
+            if (rs.next()) {
+                eventos.add(new Evento(
+                        rs.getInt("IdEvento"),
+                        rs.getString("Nombre"),
+                        rs.getString("Detalle"),
+                        rs.getString("Lugar"),
+                        rs.getDate("Fecha"),
+                        rs.getTime("HoraInicio"),
+                        rs.getTime("HoraFin"))
+                );
+            } else {
+                System.out.println("No se encontraron eventos con coincidencias");
+            }
+
+            stmnt.close();
+            rs.close();
+            this.disconnectDB();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+
+        return eventos;
+    }
 }
