@@ -15,7 +15,7 @@ class DBManager {
             conn = DriverManager.getConnection(this.url, this.user, this.password);
             System.out.println("Conectado a " + this.url);
         } catch (SQLException ex) {
-            System.out.println("SQLException, cDB: " + ex.getMessage());
+            System.out.println("SQLException from connectDB: " + ex.getMessage());
         }
     }
 
@@ -24,7 +24,7 @@ class DBManager {
             this.conn.close();
             System.out.println("Desconectado de " + this.url);
         } catch (SQLException ex) {
-            System.out.println("SQLException, dDB: " + ex.getMessage());
+            System.out.println("SQLException from disconnectDB: " + ex.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ class DBManager {
             System.out.println("Registro agregado");
             this.disconnectDB();
         } catch (SQLException ex) {
-            System.out.println("SQLException, iR: " + ex.getMessage());
+            System.out.println("SQLException from insertRegistro: " + ex.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ class DBManager {
                 hI = rs.getTime("HoraInicio");
                 hF = rs.getTime("HoraFin");
             }
-
+            
             n = (e.getNombre() == null) ? n : e.getNombre();
             d = (e.getDetalle() == null) ? d : e.getDetalle();
             l = (e.getLugar() == null) ? l : e.getLugar();
@@ -102,7 +102,7 @@ class DBManager {
             System.out.println("Registro actualizado");
             this.disconnectDB();
         } catch (SQLException ex) {
-            System.out.println("SQLException, uR: " + ex.getMessage());
+            System.out.println("SQLException from updateRegistro: " + ex.getMessage());
         }
     }
 
@@ -120,7 +120,7 @@ class DBManager {
             System.out.println("Registro eliminado");
             this.disconnectDB();
         } catch (SQLException ex) {
-            System.out.println("SQLException, dR: " + ex.getMessage());
+            System.out.println("SQLException from deleteRegistro: " + ex.getMessage());
         }
     }
 
