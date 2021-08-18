@@ -30,11 +30,11 @@ class DBManager {
 
     void insertRegistro(Evento e) {
         PreparedStatement pstmnt;
-        String sql = "INSERT INTO Eventos (Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin) VALUES (?,?,?,?,?,?)";
+        String insertSQL = "INSERT INTO Eventos (Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin) VALUES (?,?,?,?,?,?)";
 
         try {
             this.connectDB();
-            pstmnt = this.conn.prepareStatement(sql);
+            pstmnt = this.conn.prepareStatement(insertSQL);
 
             pstmnt.setString(1, e.getNombre());
             pstmnt.setString(2, e.getDetalle());
