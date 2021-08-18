@@ -8,6 +8,6 @@ public class Test {
         
         //em.createEvento("Test 2","probando nuevos metodos","My room","2021-08-16","23:35","23:45");
         //em.deleteEvento(id);
-        em.updateEvento(3,"Test 25","it's working!","",null,null,null);
+        //em.updateEvento(3,"Test 25","it's working!","",null,null,null);
     }
 }
