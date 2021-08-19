@@ -16,7 +16,7 @@ class DBManager {
     private ResultSet rs;
     private List<Evento> eventos = new ArrayList<>();
 
-    void connectDB() {
+    private void connectDB() {
         try {
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Conectado a " + url);
@@ -25,7 +25,7 @@ class DBManager {
         }
     }
 
-    void disconnectDB() {
+    private void disconnectDB() {
         try {
             conn.close();
             System.out.println("Desconectado de " + url);
