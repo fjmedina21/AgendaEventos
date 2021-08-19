@@ -6,8 +6,8 @@ import java.util.List;
 
 class DBManager {
 
-    //private final String url = "jdbc:mysql://localhost/agendaeventos?"; //Laptop
-    private final String url = "jdbc:mysql://localhost:3307/agendaeventos?"; //Desktop
+    private final String url = "jdbc:mysql://localhost/agendaeventos?"; //Laptop
+    //private final String url = "jdbc:mysql://localhost:3307/agendaeventos?"; //Desktop
     private final String user = "root";
     private final String password = "";
     private Connection conn;
@@ -144,6 +144,10 @@ class DBManager {
                 );
             }
 
+            if (eventos.isEmpty()) {
+                System.out.println("No hay eventos registrados");
+            }
+            
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {

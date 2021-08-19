@@ -15,3 +15,6 @@
 -- TRUNCATE Eventos;
 
 SELECT * FROM Eventos;
+
+-- INSERT INTO Eventos (Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin) 
+--    VALUES ('','','','0000-00-00','00:00','00:00');
