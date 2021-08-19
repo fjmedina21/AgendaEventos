@@ -15,11 +15,11 @@ class EventosManagement {
             String n = nombre;
             String d = detalle;
             String l = lugar;
+            Date f = Date.valueOf(fecha);
 
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             Time hI = new Time(timeFormat.parse(horaInicio).getTime());
             Time hF = new Time(timeFormat.parse(horaFin).getTime());
-            Date f = Date.valueOf(fecha);
 
             Evento e = new Evento(n, d, l, f, hI, hF);
             this.dbm.insertRegistro(e);
@@ -37,12 +37,11 @@ class EventosManagement {
             String n = (nombre.isEmpty()) ? null : nombre;
             String d = (detalle.isEmpty()) ? null : detalle;
             String l = (lugar.isEmpty()) ? null : lugar;
+            Date f = (fecha == null) ? null : Date.valueOf(fecha);
 
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
             Time hI = (horaInicio == null) ? null : new Time(timeFormat.parse(horaInicio).getTime());
             Time hF = (horaFin == null) ? null : new Time(timeFormat.parse(horaFin).getTime());
-            Date f = (fecha == null) ? null : Date.valueOf(fecha);
 
             Evento e = new Evento(n, d, l, f, hI, hF);
             this.dbm.updateRegistro(id, e);

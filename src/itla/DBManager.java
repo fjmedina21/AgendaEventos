@@ -11,11 +11,15 @@ class DBManager {
     private final String user = "root";
     private final String password = "";
     private Connection conn;
+    private PreparedStatement pstmnt;
+    private Statement stmnt;
+    private ResultSet rs;
+    private List<Evento> eventos = new ArrayList<>();
 
     void connectDB() {
         try {
-            conn = DriverManager.getConnection(this.url, this.user, this.password);
-            System.out.println("Conectado a " + this.url);
+            conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Conectado a " + url);
         } catch (SQLException ex) {
             System.out.println("SQLException from connectDB: " + ex.getMessage());
         }
@@ -23,21 +27,19 @@ class DBManager {
 
     void disconnectDB() {
         try {
-            this.conn.close();
-            System.out.println("Desconectado de " + this.url);
+            conn.close();
+            System.out.println("Desconectado de " + url);
         } catch (SQLException ex) {
             System.out.println("SQLException from disconnectDB: " + ex.getMessage());
         }
     }
 
     void insertRegistro(Evento e) {
-        PreparedStatement pstmnt;
+        connectDB();
         String insertSQL = "INSERT INTO Eventos (Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin) VALUES (?,?,?,?,?,?)";
 
         try {
-            this.connectDB();
-            pstmnt = this.conn.prepareStatement(insertSQL);
-
+            pstmnt = conn.prepareStatement(insertSQL);
             pstmnt.setString(1, e.getNombre());
             pstmnt.setString(2, e.getDetalle());
             pstmnt.setString(3, e.getLugar());
@@ -48,17 +50,15 @@ class DBManager {
 
             pstmnt.close();
             System.out.println("Registro agregado");
-            this.disconnectDB();
         } catch (SQLException ex) {
             System.out.println("SQLException from insertRegistro: " + ex.getMessage());
         }
+
+        disconnectDB();
     }
 
     void updateRegistro(int id, Evento e) {
-        PreparedStatement pstmnt;
-        Statement stmnt;
-        ResultSet rs;
-
+        connectDB();
         String updateSQL = "UPDATE Eventos SET Nombre = ?, Detalle = ?, Lugar = ?, Fecha = ?, HoraInicio = ?, HoraFin = ? WHERE IdEvento = " + id;
         String selectSQL = "SELECT Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin FROM Eventos WHERE IdEvento = " + id;
 
@@ -70,10 +70,7 @@ class DBManager {
         Time hF = null;
 
         try {
-            this.connectDB();
-            stmnt = this.conn.createStatement();
-            pstmnt = this.conn.prepareStatement(updateSQL);
-
+            stmnt = conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
             if (rs.next()) {
                 n = rs.getString("Nombre");
@@ -91,6 +88,7 @@ class DBManager {
             hI = (e.getHoraInicio() == null) ? hI : e.getHoraInicio();
             hF = (e.getHoraFin() == null) ? hF : e.getHoraFin();
 
+            pstmnt = conn.prepareStatement(updateSQL);
             pstmnt.setString(1, n);
             pstmnt.setString(2, d);
             pstmnt.setString(3, l);
@@ -102,40 +100,36 @@ class DBManager {
             stmnt.close();
             pstmnt.close();
             System.out.println("Registro actualizado");
-            this.disconnectDB();
         } catch (SQLException ex) {
             System.out.println("SQLException from updateRegistro: " + ex.getMessage());
         }
+
+        disconnectDB();
     }
 
     void deleteRegistro(int id) {
-        Statement stmnt;
+        connectDB();
         String deleteSQL = "DELETE FROM Eventos WHERE IdEvento = " + id;
 
         try {
-            this.connectDB();
-            stmnt = this.conn.createStatement();
-
+            stmnt = conn.createStatement();
             stmnt.executeUpdate(deleteSQL);
 
             stmnt.close();
             System.out.println("Registro eliminado");
-            this.disconnectDB();
         } catch (SQLException ex) {
             System.out.println("SQLException from deleteRegistro: " + ex.getMessage());
         }
+
+        disconnectDB();
     }
 
     List<Evento> readRegistro() {
-        Statement stmnt;
-        ResultSet rs;
-        List<Evento> eventos = new ArrayList<>();
-
+        connectDB();
         String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin FROM Eventos";
 
         try {
-            this.connectDB();
-            stmnt = this.conn.createStatement();
+            stmnt = conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
 
             while (rs.next()) {
@@ -152,24 +146,20 @@ class DBManager {
 
             stmnt.close();
             rs.close();
-            this.disconnectDB();
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
         }
 
+        disconnectDB();
         return eventos;
     }
 
     List<Evento> readRegistroByFecha(Date fecha) {
-        Statement stmnt;
-        ResultSet rs;
-        List<Evento> eventos = new ArrayList<>();
-
+        connectDB();
         String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos where Fecha = '" + fecha + "'";
 
         try {
-            this.connectDB();
-            stmnt = this.conn.createStatement();
+            stmnt = conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
 
             while (rs.next()) {
@@ -190,24 +180,20 @@ class DBManager {
 
             stmnt.close();
             rs.close();
-            this.disconnectDB();
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
         }
 
+        disconnectDB();
         return eventos;
     }
 
     List<Evento> readRegistroByNombre(String nombre) {
-        Statement stmnt;
-        ResultSet rs;
-        List<Evento> eventos = new ArrayList<>();
-
+        connectDB();
         String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos WHERE Nombre = '" + nombre + "'";
 
         try {
-            this.connectDB();
-            stmnt = this.conn.createStatement();
+            stmnt = conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
 
             while (rs.next()) {
@@ -228,24 +214,20 @@ class DBManager {
 
             stmnt.close();
             rs.close();
-            this.disconnectDB();
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
         }
 
+        disconnectDB();
         return eventos;
     }
 
     List<Evento> readRegistroByDetalle(String detalle) {
-        Statement stmnt;
-        ResultSet rs;
-        List<Evento> eventos = new ArrayList<>();
-
+        connectDB();
         String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos where Detalle like '%" + detalle + "%'";
 
         try {
-            this.connectDB();
-            stmnt = this.conn.createStatement();
+            stmnt = conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
 
             while (rs.next()) {
@@ -266,11 +248,11 @@ class DBManager {
 
             stmnt.close();
             rs.close();
-            this.disconnectDB();
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
         }
-
+        
+        disconnectDB();
         return eventos;
     }
 }
