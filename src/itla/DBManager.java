@@ -131,7 +131,7 @@ class DBManager {
         ResultSet rs;
         List<Evento> eventos = new ArrayList<>();
 
-        String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin from Eventos";
+        String selectSQL = "SELECT IdEvento, Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin FROM Eventos";
 
         try {
             this.connectDB();
@@ -172,7 +172,7 @@ class DBManager {
             stmnt = this.conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
 
-            if (rs.next()) {
+            while (rs.next()) {
                 eventos.add(new Evento(
                         rs.getInt("IdEvento"),
                         rs.getString("Nombre"),
@@ -182,7 +182,9 @@ class DBManager {
                         rs.getTime("HoraInicio"),
                         rs.getTime("HoraFin"))
                 );
-            } else {
+            }
+
+            if (eventos.isEmpty()) {
                 System.out.println("No se encontraron eventos en esta fecha");
             }
 
@@ -208,7 +210,7 @@ class DBManager {
             stmnt = this.conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
 
-            if (rs.next()) {
+            while (rs.next()) {
                 eventos.add(new Evento(
                         rs.getInt("IdEvento"),
                         rs.getString("Nombre"),
@@ -218,7 +220,9 @@ class DBManager {
                         rs.getTime("HoraInicio"),
                         rs.getTime("HoraFin"))
                 );
-            } else {
+            }
+
+            if (eventos.isEmpty()) {
                 System.out.println("No se encontraron eventos con este nombre");
             }
 
@@ -244,7 +248,7 @@ class DBManager {
             stmnt = this.conn.createStatement();
             rs = stmnt.executeQuery(selectSQL);
 
-            if (rs.next()) {
+            while (rs.next()) {
                 eventos.add(new Evento(
                         rs.getInt("IdEvento"),
                         rs.getString("Nombre"),
@@ -254,7 +258,9 @@ class DBManager {
                         rs.getTime("HoraInicio"),
                         rs.getTime("HoraFin"))
                 );
-            } else {
+            }
+
+            if (eventos.isEmpty()) {
                 System.out.println("No se encontraron eventos con coincidencias");
             }
 
