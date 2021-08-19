@@ -8,7 +8,11 @@ import java.util.List;
 
 class EventosManagement {
 
-    DBManager dbm = new DBManager();
+    private final DBManager dbm;
+
+    EventosManagement() {
+        this.dbm = new DBManager();
+    }
 
     void createEvento(String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
         try {
