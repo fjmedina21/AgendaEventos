@@ -5,16 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DBManager {
-
-    private final String url = "jdbc:mysql://localhost/agendaeventos?"; //Laptop
-    //private final String url = "jdbc:mysql://localhost:3307/agendaeventos?"; //Desktop
-    private final String user = "root";
-    private final String password = "";
+    private final String url; 
+    private final String user;
+    private final String password;
     private Connection conn;
     private PreparedStatement pstmnt;
     private Statement stmnt;
     private ResultSet rs;
     private List<Evento> eventos = new ArrayList<>();
+
+    DBManager() {
+        this.url = "jdbc:mysql://localhost:3307/agendaeventos?";
+        this.user = "root";
+        this.password = "";
+    }
 
     private void connectDB() {
         try {
