@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DBManager {
-    private final String url; 
+
+    private final String url;
     private final String user;
     private final String password;
     private Connection conn;
@@ -15,6 +16,7 @@ class DBManager {
     private List<Evento> eventos = new ArrayList<>();
 
     DBManager() {
+        //this.url = "jdbc:mysql://localhost/agendaeventos?";
         this.url = "jdbc:mysql://localhost:3307/agendaeventos?";
         this.user = "root";
         this.password = "";
@@ -151,7 +153,7 @@ class DBManager {
             if (eventos.isEmpty()) {
                 System.out.println("No hay eventos registrados");
             }
-            
+
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {
@@ -259,7 +261,7 @@ class DBManager {
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
         }
-        
+
         disconnectDB();
         return eventos;
     }
