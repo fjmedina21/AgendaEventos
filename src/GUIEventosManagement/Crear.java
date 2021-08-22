@@ -7,6 +7,7 @@ class Crear extends javax.swing.JFrame {
     
     Crear() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -30,7 +31,7 @@ class Crear extends javax.swing.JFrame {
         horaFinalLbl = new javax.swing.JLabel();
         txtHoraFinal = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         jRadioButton.setText("jRadioButton1");
 
@@ -64,10 +65,10 @@ class Crear extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -107,10 +108,10 @@ class Crear extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
+                                        .addGap(49, 49, 49)
                                         .addComponent(btnGuardar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnCancelar)))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCancel)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -150,7 +151,7 @@ class Crear extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
-                    .addComponent(btnCancelar)))
+                    .addComponent(btnCancel)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,9 +189,9 @@ class Crear extends javax.swing.JFrame {
         }   
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         setVisible(false);
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,7 +229,7 @@ class Crear extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel detalleLbl;
     private javax.swing.JLabel fechaLbl;

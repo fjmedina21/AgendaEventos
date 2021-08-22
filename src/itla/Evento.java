@@ -31,31 +31,31 @@ public class Evento {
         this.horaFin = horaFin;
     }
 
-    int getIdEvento() {
+    public int getIdEvento() {
         return idEvento;
     }
     
-    String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    String getDetalle() {
+    public String getDetalle() {
         return detalle;
     }
     
-    String getLugar() {
+    public String getLugar() {
         return lugar;
     }
     
-    Date getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    Time getHoraInicio() {
+    public Time getHoraInicio() {
         return horaInicio;
     }
 
-    Time getHoraFin() {
+    public Time getHoraFin() {
         return horaFin;
     }
 }

@@ -1,11 +1,21 @@
-
 package GUIEventosManagement;
 
+import itla.*;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 public class Main extends javax.swing.JFrame {
+
+    private Object[] fila = {"Nombre", "Detalle", "Lugar", "Fecha", "Hora de inicio", "Hora de fin"};
+    private DefaultTableModel modelo = new DefaultTableModel();
+    private EventosManagement eventManager = new EventosManagement();
+    private List<Evento> eventos;
 
     public Main() {
         initComponents();
         this.setLocationRelativeTo(null);
+        modelTable();
+        showEvento();
     }
 
     @SuppressWarnings("unchecked")
@@ -18,10 +28,12 @@ public class Main extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableEventos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnCreate.setText("Crear Evento");
+        btnCreate.setText("Nuevo Evento");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
@@ -58,26 +70,45 @@ public class Main extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(268, 268, 268)
                 .addComponent(jLabel2)
-                .addGap(155, 155, 155))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        tableEventos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableEventos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableEventos.setFillsViewportHeight(true);
+        jScrollPane1.setViewportView(tableEventos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(95, 95, 95)
                 .addComponent(btnCreate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdate)
@@ -85,23 +116,61 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnDelete)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnUpdate)
                     .addComponent(btnSearch)
                     .addComponent(btnDelete))
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    void modelTable() {
+        modelo = new DefaultTableModel(null, this.fila) {
+            @Override
+            public boolean isCellEditable(int filas, int columnas) {
+                if (columnas == 6) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+        modelo.setColumnIdentifiers(this.fila);
+        tableEventos.setModel(modelo);
+        tableEventos.setRowHeight(30);
+    }
+
+    void showEvento() {
+        eventos = eventManager.searchEvento();
+        eventos.forEach(e -> {
+            fila[0] = e.getNombre();
+            fila[1] = e.getDetalle();
+            fila[2] = e.getLugar();
+            fila[3] = e.getFecha();
+            fila[4] = e.getHoraInicio();
+            fila[5] = e.getHoraFin();
+            modelo.addRow(fila);
+        }
+        tableEventos.setModel(modelo);
+    }
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         Eliminar eliminar = new Eliminar();
@@ -110,7 +179,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         Crear crear = new Crear();
-        crear.setVisible(true);  
+        crear.setVisible(true);
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -119,8 +188,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        /*Buscar buscar = new Buscar();
-        buscar.setVisible(true);*/
+        Buscar buscar = new Buscar();
+        buscar.setVisible(true);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
@@ -166,5 +235,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableEventos;
     // End of variables declaration//GEN-END:variables
+
 }

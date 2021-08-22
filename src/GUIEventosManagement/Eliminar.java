@@ -6,6 +6,7 @@ class Eliminar extends javax.swing.JFrame {
     
     public Eliminar() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
