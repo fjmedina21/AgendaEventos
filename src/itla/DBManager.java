@@ -16,8 +16,8 @@ class DBManager {
     private List<Evento> eventos = new ArrayList<>();
 
     DBManager() {
-        //this.url = "jdbc:mysql://localhost/agendaeventos?";
-        this.url = "jdbc:mysql://localhost:3307/agendaeventos?";
+        this.url = "jdbc:mysql://localhost/agendaeventos?";
+        //this.url = "jdbc:mysql://localhost:3307/agendaeventos?";
         this.user = "root";
         this.password = "";
     }

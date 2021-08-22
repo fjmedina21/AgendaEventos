@@ -6,15 +6,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-class EventosManagement {
+public class EventosManagement {
 
     private final DBManager dbm;
 
-    EventosManagement() {
+    public EventosManagement() {
         this.dbm = new DBManager();
     }
 
-    void createEvento(String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
+    public void createEvento(String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
         try {
             String n = nombre;
             String d = detalle;
@@ -32,11 +32,11 @@ class EventosManagement {
         }
     }
 
-    void deleteEvento(int id) {
+    public void deleteEvento(int id) {
         this.dbm.deleteRegistro(id);
     }
 
-    void updateEvento(int id, String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
+    public void updateEvento(int id, String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
         try {
             String n = (nombre.isEmpty()) ? null : nombre;
             String d = (detalle.isEmpty()) ? null : detalle;
@@ -54,22 +54,22 @@ class EventosManagement {
         }
     }
 
-    List<Evento> searchEvento() {
+    public List<Evento> searchEvento() {
         List<Evento> resultado = dbm.readRegistro();
         return resultado;
     }
 
-    List<Evento> searchEventoByNombre(String nombre) {
+    public List<Evento> searchEventoByNombre(String nombre) {
         List<Evento> resultado = dbm.readRegistroByNombre(nombre);
         return resultado;
     }
 
-    List<Evento> searchEventoByDetalle(String detalle) {
+    public List<Evento> searchEventoByDetalle(String detalle) {
         List<Evento> resultado = dbm.readRegistroByDetalle(detalle);
         return resultado;
     }
 
-    List<Evento> searchEventoByFecha(String fecha) {
+    public List<Evento> searchEventoByFecha(String fecha) {
         List<Evento> resultado = dbm.readRegistroByFecha(Date.valueOf(fecha));
         return resultado;
     }
