@@ -25,7 +25,7 @@ class DBManager {
     private void connectDB() {
         try {
             conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Conectado a " + url);
+            //System.out.println("Conectado a " + url);
         } catch (SQLException ex) {
             System.out.println("SQLException from connectDB: " + ex.getMessage());
         }
@@ -34,7 +34,7 @@ class DBManager {
     private void disconnectDB() {
         try {
             conn.close();
-            System.out.println("Desconectado de " + url);
+            //System.out.println("Desconectado de " + url);
         } catch (SQLException ex) {
             System.out.println("SQLException from disconnectDB: " + ex.getMessage());
         }
@@ -55,7 +55,7 @@ class DBManager {
             pstmnt.executeUpdate();
 
             pstmnt.close();
-            System.out.println("Registro agregado");
+            //System.out.println("Registro agregado");
         } catch (SQLException ex) {
             System.out.println("SQLException from insertRegistro: " + ex.getMessage());
         }
@@ -105,7 +105,7 @@ class DBManager {
 
             stmnt.close();
             pstmnt.close();
-            System.out.println("Registro actualizado");
+            //System.out.println("Registro actualizado");
         } catch (SQLException ex) {
             System.out.println("SQLException from updateRegistro: " + ex.getMessage());
         }
@@ -122,7 +122,7 @@ class DBManager {
             stmnt.executeUpdate(deleteSQL);
 
             stmnt.close();
-            System.out.println("Registro eliminado");
+            //System.out.println("Registro eliminado");
         } catch (SQLException ex) {
             System.out.println("SQLException from deleteRegistro: " + ex.getMessage());
         }
@@ -150,9 +150,9 @@ class DBManager {
                 );
             }
 
-            if (eventos.isEmpty()) {
+            /*if (eventos.isEmpty()) {
                 System.out.println("No hay eventos registrados");
-            }
+            }*/
 
             stmnt.close();
             rs.close();
@@ -184,9 +184,9 @@ class DBManager {
                 );
             }
 
-            if (eventos.isEmpty()) {
+            /*if (eventos.isEmpty()) {
                 System.out.println("No se encontraron eventos en esta fecha");
-            }
+            }*/
 
             stmnt.close();
             rs.close();
@@ -218,9 +218,9 @@ class DBManager {
                 );
             }
 
-            if (eventos.isEmpty()) {
+            /*if (eventos.isEmpty()) {
                 System.out.println("No se encontraron eventos con este nombre");
-            }
+            }*/
 
             stmnt.close();
             rs.close();
@@ -252,9 +252,9 @@ class DBManager {
                 );
             }
 
-            if (eventos.isEmpty()) {
+            /*if (eventos.isEmpty()) {
                 System.out.println("No se encontraron eventos con coincidencias");
-            }
+            }*/
 
             stmnt.close();
             rs.close();

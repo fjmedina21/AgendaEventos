@@ -38,6 +38,7 @@ class Crear extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         titleLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        titleLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleLbl.setText("Crear Eventos");
 
         nombreLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -79,6 +80,7 @@ class Crear extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -113,11 +115,8 @@ class Crear extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(btnCancel)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(titleLbl)
-                        .addGap(79, 79, 79))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +169,7 @@ class Crear extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    void createEvento(){
         EventosManagement em = new EventosManagement();
         
         String n = txtNombre.getText();
@@ -186,7 +185,11 @@ class Crear extends javax.swing.JFrame {
             em.createEvento(n,d,l,f,hI,hF);
             JOptionPane.showMessageDialog(this, "Registro agregado");
             setVisible(false);
-        }   
+        }
+    }
+    
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        createEvento();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
