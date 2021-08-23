@@ -69,13 +69,14 @@ public class Del_Upd extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(262, 262, 262)
+                .addGap(319, 319, 319)
                 .addComponent(btnCancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -83,11 +84,12 @@ public class Del_Upd extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -123,7 +125,6 @@ public class Del_Upd extends javax.swing.JFrame {
                     if (s == 0) {
                         eventManager.deleteEvento(id);
                         JOptionPane.showMessageDialog(this, "Evento eliminado");
-                        setVisible(false);
                     }
                 } else if(boton.getName().equals("update")){
                     int i = (int) modelo.getValueAt(tableEventos.getSelectedRow(), 0);
@@ -143,10 +144,10 @@ public class Del_Upd extends javax.swing.JFrame {
                     String hF = timeFormat.format(hFinal);  
                     
                     Modificar u = new Modificar(i,n,d,l,f,hI,hF);
-                    setVisible(false);
                 }
             }
         }
+        setVisible(false);
     }//GEN-LAST:event_tableEventosMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -170,9 +171,9 @@ public class Del_Upd extends javax.swing.JFrame {
 
     void showEvento() {
         tableEventos.setDefaultRenderer(Object.class, new Render());
-        JButton btnEliminar = new JButton("Eliminar");
+        JButton btnEliminar = new JButton("DEL");
         btnEliminar.setName("delete");
-        JButton btnModificar = new JButton("Modificar");
+        JButton btnModificar = new JButton("UPD");
         btnModificar.setName("update");
 
         eventos = eventManager.searchEvento();
