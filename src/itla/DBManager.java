@@ -30,7 +30,7 @@ class DBManager {
             System.out.println("SQLException from connectDB: " + ex.getMessage());
         }
     }
-
+    
     private void disconnectDB() {
         try {
             conn.close();

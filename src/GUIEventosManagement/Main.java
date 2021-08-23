@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class Main extends javax.swing.JFrame {
 
-    private Object[] fila = {"Nombre", "Detalle", "Lugar", "Fecha", "Hora de inicio", "Hora de fin"};
     private DefaultTableModel modelo = new DefaultTableModel();
     private EventosManagement eventManager = new EventosManagement();
     private List<Evento> eventos;
@@ -14,7 +13,6 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         this.setLocationRelativeTo(null);
-        modelTable();
         showEvento();
     }
 
@@ -29,6 +27,7 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableEventos = new javax.swing.JTable();
+        btnRefrescar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,24 +92,34 @@ public class Main extends javax.swing.JFrame {
         tableEventos.setFillsViewportHeight(true);
         jScrollPane1.setViewportView(tableEventos);
 
+        btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(btnCreate)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRefrescar)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(197, 197, 197)
-                .addComponent(btnCreate)
-                .addGap(18, 18, 18)
-                .addComponent(btnDelete)
-                .addGap(18, 18, 18)
-                .addComponent(btnSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +129,8 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
                     .addComponent(btnCreate)
-                    .addComponent(btnDelete))
+                    .addComponent(btnDelete)
+                    .addComponent(btnRefrescar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -130,30 +140,32 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     void modelTable() {
-        modelo = new DefaultTableModel(null, this.fila) {
-            @Override
-            public boolean isCellEditable(int filas, int columnas) {
-                if (columnas == 6) {
-                    return true;
-                } else {
-                    return false;
-                }
+        modelo = new DefaultTableModel() {
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
-        modelo.setColumnIdentifiers(this.fila);
-        tableEventos.setModel(modelo);
-        tableEventos.setRowHeight(30);
+
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Detalle");
+        modelo.addColumn("Lugar");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Hora de inicio");
+        modelo.addColumn("Hora de fin");
     }
 
     void showEvento() {
         eventos = eventManager.searchEvento();
-        eventos.forEach(e -> {  fila[0] = e.getNombre();
-                                fila[1] = e.getDetalle();
-                                fila[2] = e.getLugar();
-                                fila[3] = e.getFecha();
-                                fila[4] = e.getHoraInicio();
-                                fila[5] = e.getHoraFin();
-                                modelo.addRow(fila);
+        modelTable();
+        eventos.forEach(e -> {
+            Object[] fila = new Object[6];
+            fila[0] = e.getNombre();
+            fila[1] = e.getDetalle();
+            fila[2] = e.getLugar();
+            fila[3] = e.getFecha();
+            fila[4] = e.getHoraInicio();
+            fila[5] = e.getHoraFin();
+            modelo.addRow(fila);
         });
         tableEventos.setModel(modelo);
     }
@@ -172,6 +184,10 @@ public class Main extends javax.swing.JFrame {
         Buscar buscar = new Buscar();
         buscar.setVisible(true);
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        showEvento();
+    }//GEN-LAST:event_btnRefrescarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,6 +228,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;

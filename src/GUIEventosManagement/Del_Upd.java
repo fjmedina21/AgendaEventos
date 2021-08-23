@@ -147,11 +147,11 @@ public class Del_Upd extends javax.swing.JFrame {
                 }
             }
         }
-        setVisible(false);
+        dispose();
     }//GEN-LAST:event_tableEventosMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        setVisible(false);
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     void modelTable() {

@@ -13,7 +13,7 @@ public class EventosManagement {
     public EventosManagement() {
         this.dbm = new DBManager();
     }
-
+  
     public void createEvento(String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
         try {
             String n = nombre;
@@ -53,7 +53,7 @@ public class EventosManagement {
             System.out.println("ParseException: " + pe.getMessage());
         }
     }
-
+    
     public List<Evento> searchEvento() {
         List<Evento> resultado = dbm.readRegistro();
         return resultado;

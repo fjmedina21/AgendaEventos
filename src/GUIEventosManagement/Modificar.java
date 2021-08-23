@@ -182,11 +182,11 @@ class Modificar extends javax.swing.JFrame {
         
         em.updateEvento(i, n, d, l, f, hI, hF);
         JOptionPane.showMessageDialog(this, "Registro actualizado");
-        setVisible(false);
+        dispose();
     }
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        setVisible(false);
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed

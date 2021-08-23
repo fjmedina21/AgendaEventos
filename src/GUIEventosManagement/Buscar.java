@@ -8,40 +8,44 @@ import javax.swing.table.DefaultTableModel;
 public class Buscar extends javax.swing.JFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel();
-    private Object[] fila = {"Nombre", "Detalle", "Lugar", "Fecha", "Hora de inicio", "Hora de fin"};
     private EventosManagement em = new EventosManagement();
     private List<Evento> eventos;
 
     public Buscar() {
         initComponents();
         this.setLocationRelativeTo(null);
-        modelTable();
 
     }
 
     void modelTable() {
-        modelo = new DefaultTableModel(null, this.fila) {
-            @Override
-            public boolean isCellEditable(int filas, int columnas) {
-                if (columnas == 6) {
-                    return true;
-                } else {
-                    return false;
-                }
+        modelo = new DefaultTableModel() {
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
         };
-        modelo.setColumnIdentifiers(this.fila);
-        tableEventos.setModel(modelo);
-        tableEventos.setRowHeight(30);
+
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Detalle");
+        modelo.addColumn("Lugar");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Hora de inicio");
+        modelo.addColumn("Hora de fin");
     }
 
     void searchEventoGUI() {
+        modelTable();
         int opt = 0;
 
-        if (buttonNombre.isSelected()) opt = 1;
-        if (buttonFecha.isSelected())  opt = 2;
-        if (buttonDetalle.isSelected()) opt = 3;
-        
+        if (buttonNombre.isSelected()) {
+            opt = 1;
+        }
+        if (buttonFecha.isSelected()) {
+            opt = 2;
+        }
+        if (buttonDetalle.isSelected()) {
+            opt = 3;
+        }
+
         switch (opt) {
             case 1:
                 if (txtBuscar.getText().isEmpty()) {
@@ -52,17 +56,17 @@ public class Buscar extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "No se encontraron eventos con este nombre");
                     } else {
                         for (Evento e : eventos) {
+                            Object[] fila = new Object[6];
                             fila[0] = e.getNombre();
                             fila[1] = e.getDetalle();
                             fila[2] = e.getLugar();
                             fila[3] = e.getFecha();
                             fila[4] = e.getHoraInicio();
                             fila[5] = e.getHoraFin();
-                            modelo.addRow(fila);
-                        }
+                            modelo.addRow(fila);}
                         tableEventos.setModel(modelo);
                     }
-                }    
+                }
                 break;
             case 2:
                 if (txtBuscar.getText().isEmpty()) {
@@ -73,14 +77,14 @@ public class Buscar extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "No se encontraron eventos con esta fecha");
                     } else {
                         for (Evento e : eventos) {
+                            Object[] fila = new Object[6];
                             fila[0] = e.getNombre();
                             fila[1] = e.getDetalle();
                             fila[2] = e.getFecha();
                             fila[3] = e.getLugar();
                             fila[4] = e.getHoraInicio();
                             fila[5] = e.getHoraFin();
-                            modelo.addRow(fila);
-                        }
+                            modelo.addRow(fila);}
                         tableEventos.setModel(modelo);
                     }
                 }
@@ -94,19 +98,20 @@ public class Buscar extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "No se encontraron eventos con coincidencias");
                     } else {
                         for (Evento e : eventos) {
+                            Object[] fila = new Object[6];
                             fila[0] = e.getNombre();
                             fila[1] = e.getDetalle();
                             fila[2] = e.getFecha();
                             fila[3] = e.getLugar();
                             fila[4] = e.getHoraInicio();
                             fila[5] = e.getHoraFin();
-                            modelo.addRow(fila);
-                        }
+                            modelo.addRow(fila);}
                         tableEventos.setModel(modelo);
                     }
                 }
                 break;
-            default: JOptionPane.showMessageDialog(this, "Seleccione un filtro");
+            default:
+                JOptionPane.showMessageDialog(this, "Seleccione un filtro");
         }
     }
 
@@ -121,9 +126,9 @@ public class Buscar extends javax.swing.JFrame {
         buttonNombre = new javax.swing.JRadioButton();
         buttonFecha = new javax.swing.JRadioButton();
         buttonDetalle = new javax.swing.JRadioButton();
-        desplazamientoTabla = new javax.swing.JScrollPane();
-        tableEventos = new javax.swing.JTable();
         btnCancel = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableEventos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -149,30 +154,6 @@ public class Buscar extends javax.swing.JFrame {
         groupBuscar.add(buttonDetalle);
         buttonDetalle.setText("Detalle");
 
-        tableEventos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableEventos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tableEventos.setAutoscrolls(false);
-        tableEventos.setFillsViewportHeight(true);
-        desplazamientoTabla.setViewportView(tableEventos);
-
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,10 +161,37 @@ public class Buscar extends javax.swing.JFrame {
             }
         });
 
+        tableEventos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Ddetalle", "Lugar","Fecha","Hora Inicio", "Hora Fin"
+            }
+        ));
+        jScrollPane1.setViewportView(tableEventos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancel)
+                .addContainerGap(120, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonNombre)
@@ -192,22 +200,9 @@ public class Buscar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonDetalle)
                 .addGap(300, 300, 300))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(desplazamientoTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -226,8 +221,8 @@ public class Buscar extends javax.swing.JFrame {
                     .addComponent(buttonFecha)
                     .addComponent(buttonDetalle))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(desplazamientoTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,7 +233,7 @@ public class Buscar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        setVisible(false);
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
@@ -282,9 +277,9 @@ public class Buscar extends javax.swing.JFrame {
     private javax.swing.JRadioButton buttonDetalle;
     private javax.swing.JRadioButton buttonFecha;
     private javax.swing.JRadioButton buttonNombre;
-    private javax.swing.JScrollPane desplazamientoTabla;
     private javax.swing.ButtonGroup groupBuscar;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableEventos;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
