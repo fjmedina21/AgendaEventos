@@ -17,7 +17,6 @@ class DBManager {
 
     DBManager() {
         this.url = "jdbc:mysql://localhost/agendaeventos?";
-        //this.url = "jdbc:mysql://localhost:3307/agendaeventos?";
         this.user = "root";
         this.password = "";
     }

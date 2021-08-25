@@ -179,7 +179,11 @@ class Modificar extends javax.swing.JFrame {
         String f = txtFecha.getText();
         String hI = txtHoraInicio.getText();
         String hF = txtHoraFinal.getText();
-        
+
+        f = (f.isEmpty()) ? null : f;
+        hI = (hI.isEmpty()) ? null : hI;
+        hF = (hF.isEmpty()) ? null : hF;
+
         em.updateEvento(i, n, d, l, f, hI, hF);
         JOptionPane.showMessageDialog(this, "Registro actualizado");
         dispose();

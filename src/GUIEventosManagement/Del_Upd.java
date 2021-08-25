@@ -143,7 +143,7 @@ public class Del_Upd extends javax.swing.JFrame {
                     String hI = timeFormat.format(hInicio);  
                     String hF = timeFormat.format(hFinal);  
                     
-                    Modificar u = new Modificar(i,n,d,l,f,hI,hF);
+                    new Modificar(i,n,d,l,f,hI,hF);
                 }
             }
         }
