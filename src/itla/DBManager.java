@@ -1,6 +1,7 @@
 package itla;
 
 import java.io.FileInputStream;
+import static java.lang.System.out;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ class DBManager {
             this.password = configProp.getProperty("db_pass");
             
         } catch(Exception e){
-           System.out.println(e.getMessage());
+           out.println(e.getMessage());
         }  
         
     }
@@ -41,7 +42,7 @@ class DBManager {
         try {
             conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException ex) {
-           System.out.println("SQLException from connectDB: " + ex.getMessage());
+           out.println("SQLException from connectDB: " + ex.getMessage());
         }
     }
     
@@ -49,7 +50,7 @@ class DBManager {
         try {
             conn.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException from disconnectDB: " + ex.getMessage());
+            out.println("SQLException from disconnectDB: " + ex.getMessage());
         }
     }
 
@@ -69,7 +70,7 @@ class DBManager {
 
             pstmnt.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException from insertRegistro: " + ex.getMessage());
+            out.println("SQLException from insertRegistro: " + ex.getMessage());
         }
 
         disconnectDB();
@@ -118,7 +119,7 @@ class DBManager {
             stmnt.close();
             pstmnt.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException from updateRegistro: " + ex.getMessage());
+            out.println("SQLException from updateRegistro: " + ex.getMessage());
         }
 
         disconnectDB();
@@ -134,7 +135,7 @@ class DBManager {
 
             stmnt.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException from deleteRegistro: " + ex.getMessage());
+            out.println("SQLException from deleteRegistro: " + ex.getMessage());
         }
 
         disconnectDB();
@@ -163,7 +164,7 @@ class DBManager {
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
+            out.println("SQLException: " + ex.getMessage());
         }
 
         disconnectDB();
@@ -193,7 +194,7 @@ class DBManager {
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
+            out.println("SQLException: " + ex.getMessage());
         }
 
         disconnectDB();
@@ -223,7 +224,7 @@ class DBManager {
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
+            out.println("SQLException: " + ex.getMessage());
         }
 
         disconnectDB();
@@ -253,7 +254,7 @@ class DBManager {
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
+            out.println("SQLException: " + ex.getMessage());
         }
 
         disconnectDB();
