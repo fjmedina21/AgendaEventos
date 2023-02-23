@@ -1,7 +1,6 @@
 package itla;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +31,10 @@ class DBManager {
             this.user = configProp.getProperty("db_user");
             this.password = configProp.getProperty("db_pass");
             
-        } catch(FileNotFoundException e){
+        } catch(Exception e){
            System.out.println(e.getMessage());
         }  
+        
     }
 
     private void connectDB() {
