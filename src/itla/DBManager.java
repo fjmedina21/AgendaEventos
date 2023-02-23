@@ -1,5 +1,6 @@
 package itla;
 
+import static java.lang.System.out;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ class DBManager {
     private List<Evento> eventos = new ArrayList<>();
 
     DBManager() {
-        this.url = "jdbc:mysql://localhost/agendaeventos?";
+        this.url = "jdbc:mysql://localhost:3307/agendaeventos";
         this.user = "root";
         this.password = "";
     }
@@ -24,18 +25,16 @@ class DBManager {
     private void connectDB() {
         try {
             conn = DriverManager.getConnection(url, user, password);
-            //System.out.println("Conectado a " + url);
         } catch (SQLException ex) {
-            System.out.println("SQLException from connectDB: " + ex.getMessage());
+           out.println("SQLException from connectDB: " + ex.getMessage());
         }
     }
     
     private void disconnectDB() {
         try {
             conn.close();
-            //System.out.println("Desconectado de " + url);
         } catch (SQLException ex) {
-            System.out.println("SQLException from disconnectDB: " + ex.getMessage());
+            out.println("SQLException from disconnectDB: " + ex.getMessage());
         }
     }
 
@@ -54,9 +53,8 @@ class DBManager {
             pstmnt.executeUpdate();
 
             pstmnt.close();
-            //System.out.println("Registro agregado");
         } catch (SQLException ex) {
-            System.out.println("SQLException from insertRegistro: " + ex.getMessage());
+            out.println("SQLException from insertRegistro: " + ex.getMessage());
         }
 
         disconnectDB();
@@ -65,7 +63,7 @@ class DBManager {
     void updateRegistro(int id, Evento e) {
         connectDB();
         String updateSQL = "UPDATE Eventos SET Nombre = ?, Detalle = ?, Lugar = ?, Fecha = ?, HoraInicio = ?, HoraFin = ? WHERE IdEvento = " + id;
-        String selectSQL = "SELECT Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin FROM Eventos WHERE IdEvento = " + id;
+        String selectSQL = "SELECT Nombre, Detalle, Lugar, Fecha, HoraInicio, HoraFin FROM Eventos WHERE IdEvento = " + e.getIdEvento();
 
         String n = "";
         String d = "";
@@ -104,7 +102,6 @@ class DBManager {
 
             stmnt.close();
             pstmnt.close();
-            //System.out.println("Registro actualizado");
         } catch (SQLException ex) {
             System.out.println("SQLException from updateRegistro: " + ex.getMessage());
         }
@@ -121,7 +118,6 @@ class DBManager {
             stmnt.executeUpdate(deleteSQL);
 
             stmnt.close();
-            //System.out.println("Registro eliminado");
         } catch (SQLException ex) {
             System.out.println("SQLException from deleteRegistro: " + ex.getMessage());
         }
@@ -148,10 +144,6 @@ class DBManager {
                         rs.getTime("HoraFin"))
                 );
             }
-
-            /*if (eventos.isEmpty()) {
-                System.out.println("No hay eventos registrados");
-            }*/
 
             stmnt.close();
             rs.close();
@@ -182,11 +174,7 @@ class DBManager {
                         rs.getTime("HoraFin"))
                 );
             }
-
-            /*if (eventos.isEmpty()) {
-                System.out.println("No se encontraron eventos en esta fecha");
-            }*/
-
+        
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {
@@ -217,10 +205,6 @@ class DBManager {
                 );
             }
 
-            /*if (eventos.isEmpty()) {
-                System.out.println("No se encontraron eventos con este nombre");
-            }*/
-
             stmnt.close();
             rs.close();
         } catch (SQLException ex) {
@@ -250,10 +234,6 @@ class DBManager {
                         rs.getTime("HoraFin"))
                 );
             }
-
-            /*if (eventos.isEmpty()) {
-                System.out.println("No se encontraron eventos con coincidencias");
-            }*/
 
             stmnt.close();
             rs.close();

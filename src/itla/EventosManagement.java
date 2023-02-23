@@ -27,6 +27,8 @@ public class EventosManagement {
 
             Evento e = new Evento(n, d, l, f, hI, hF);
             this.dbm.insertRegistro(e);
+            this.searchEvento();
+            
         } catch (ParseException pe) {
             System.out.println("ParseException: " + pe.getMessage());
         }
@@ -34,6 +36,8 @@ public class EventosManagement {
 
     public void deleteEvento(int id) {
         this.dbm.deleteRegistro(id);
+        this.searchEvento();
+
     }
 
     public void updateEvento(int id, String nombre, String detalle, String lugar, String fecha, String horaInicio, String horaFin) {
@@ -49,6 +53,8 @@ public class EventosManagement {
 
             Evento e = new Evento(n, d, l, f, hI, hF);
             this.dbm.updateRegistro(id, e);
+            this.searchEvento();
+
         } catch (ParseException pe) {
             System.out.println("ParseException: " + pe.getMessage());
         }

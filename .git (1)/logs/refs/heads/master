@@ -1,0 +1,22 @@
+0000000000000000000000000000000000000000 cde8bce4c6a16681838986a3698f7a1bbc75a682 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629078492 -0400	commit (initial): conexiones DB
+cde8bce4c6a16681838986a3698f7a1bbc75a682 84b7f6ca2c50249c1c4c5cf795cfc7220ced69dc Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629081009 -0400	commit: metodo updateRegistro fix
+84b7f6ca2c50249c1c4c5cf795cfc7220ced69dc 6f3ac60ed5a4c1fcd85be529e91aeeddb862a176 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629139914 -0400	commit: createEvento metodo creado
+6f3ac60ed5a4c1fcd85be529e91aeeddb862a176 49354e9d270d0434d56b17c7b16da4562e90c347 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629140943 -0400	commit: x
+49354e9d270d0434d56b17c7b16da4562e90c347 f8c188eb6b7b319574aedd3298832d08d844bdd7 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629141686 -0400	commit (merge): x
+f8c188eb6b7b319574aedd3298832d08d844bdd7 11eb3537fc221efdbf02845c78d02d5ac30eeb07 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629146175 -0400	commit: metodos deleteEvento y updateEvento creados
+11eb3537fc221efdbf02845c78d02d5ac30eeb07 4bdab4e291b67d47771806b78d28f9b7086d75ff Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629170865 -0400	commit: xx
+4bdab4e291b67d47771806b78d28f9b7086d75ff 83d4b9172d101239d5c4a447f796a83e07a6d6b6 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629256067 -0400	pull: Fast-forward
+83d4b9172d101239d5c4a447f796a83e07a6d6b6 312ca339409d55ff1b89f75856f77f874f88ba71 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629256687 -0400	commit: maded user, root and password 'final'
+312ca339409d55ff1b89f75856f77f874f88ba71 50f62b6eef9b3aae57158dc304d74d8ad54d00c0 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629329175 -0400	pull: Fast-forward
+50f62b6eef9b3aae57158dc304d74d8ad54d00c0 34a861dd92b4b2d968da12a035df499e6462028b Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629333709 -0400	pull: Fast-forward
+34a861dd92b4b2d968da12a035df499e6462028b 4307e6f7501a9b06af80850e2d15c070516e66c8 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629381144 -0400	pull: Fast-forward
+4307e6f7501a9b06af80850e2d15c070516e66c8 e02ad0f5986eae0fb0ac28825c8d7b9ad73218c4 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629388773 -0400	pull: Fast-forward
+e02ad0f5986eae0fb0ac28825c8d7b9ad73218c4 53a8f5ccf55f80cc296683f11d16bd50812f227e Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629389420 -0400	pull: Fast-forward
+53a8f5ccf55f80cc296683f11d16bd50812f227e 9d85ae11db44fc88e716556e9d7f0f402fccd2b3 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629473489 -0400	pull: Fast-forward
+9d85ae11db44fc88e716556e9d7f0f402fccd2b3 2f539397a39f30cf450adc41e128551ac4395ec1 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629473659 -0400	pull: Fast-forward
+2f539397a39f30cf450adc41e128551ac4395ec1 ec3f5f2208833527f2a526e8b14b7584dc5ba8a6 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629593364 -0400	commit: agregando el GUI
+ec3f5f2208833527f2a526e8b14b7584dc5ba8a6 d6b9f615154bf4733607cf24bdfb5da5e1cb41a9 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629599757 -0400	commit: buscar metodo
+d6b9f615154bf4733607cf24bdfb5da5e1cb41a9 ed3873d214e4d7d0d57844ea0a12902988a6f8ea Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629685108 -0400	commit: metodos eliminar y modificar implementados en le GUI
+ed3873d214e4d7d0d57844ea0a12902988a6f8ea a517fc98b44db771932607cbac56b49fe1150068 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629725188 -0400	commit: dd
+a517fc98b44db771932607cbac56b49fe1150068 4aa326109530305db557a7002fb2e8b9bc18e741 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629758235 -0400	commit: dispose()
+4aa326109530305db557a7002fb2e8b9bc18e741 58c89ca115e5a0b0aa224da697b7e96fcb01f363 Francisco Javier Medina Matos <f-javier21@hotmail.com> 1629932219 -0400	commit: se puede dejar el campo fecha y hora vacio para actualizar y no genera cambio
