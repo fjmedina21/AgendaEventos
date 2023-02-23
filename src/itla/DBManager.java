@@ -1,11 +1,16 @@
 package itla;
 
-import static java.lang.System.out;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 class DBManager {
+    
+    private String configPath = "src/resources/config.properties";
+    private FileInputStream propsInput;
 
     private final String url;
     private final String user;
@@ -16,17 +21,27 @@ class DBManager {
     private ResultSet rs;
     private List<Evento> eventos = new ArrayList<>();
 
-    DBManager() {
-        this.url = "jdbc:mysql://localhost:3307/agendaeventos";
-        this.user = "root";
-        this.password = "";
+    DBManager(){
+        try{
+            this.propsInput = new FileInputStream(this.configPath);
+
+            Properties configProp = new Properties();
+            configProp.load(this.propsInput);
+
+            this.url = configProp.getProperty("MySQL_URL");
+            this.user = configProp.getProperty("db_user");
+            this.password = configProp.getProperty("db_pass");
+            
+        } catch(FileNotFoundException e){
+           System.out.println(e.getMessage());
+        }  
     }
 
     private void connectDB() {
         try {
             conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException ex) {
-           out.println("SQLException from connectDB: " + ex.getMessage());
+           System.out.println("SQLException from connectDB: " + ex.getMessage());
         }
     }
     
@@ -34,7 +49,7 @@ class DBManager {
         try {
             conn.close();
         } catch (SQLException ex) {
-            out.println("SQLException from disconnectDB: " + ex.getMessage());
+            System.out.println("SQLException from disconnectDB: " + ex.getMessage());
         }
     }
 
@@ -54,7 +69,7 @@ class DBManager {
 
             pstmnt.close();
         } catch (SQLException ex) {
-            out.println("SQLException from insertRegistro: " + ex.getMessage());
+            System.out.println("SQLException from insertRegistro: " + ex.getMessage());
         }
 
         disconnectDB();
