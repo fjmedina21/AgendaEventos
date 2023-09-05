@@ -1,6 +1,7 @@
 package itla;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import static java.lang.System.out;
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,9 +13,9 @@ class DBManager {
     private String configPath = "src/resources/config.properties";
     private FileInputStream propsInput;
 
-    private final String url;
-    private final String user;
-    private final String password;
+    private String url;
+    private String user;
+    private String password;
     private Connection conn;
     private PreparedStatement pstmnt;
     private Statement stmnt;
@@ -29,10 +30,10 @@ class DBManager {
             configProp.load(this.propsInput);
 
             this.url = configProp.getProperty("MySQL_URL");
-            this.user = configProp.getProperty("db_user");
-            this.password = configProp.getProperty("db_pass");
+            this.user = configProp.getProperty("DB_USER");
+            this.password = configProp.getProperty("DB_PASS");
             
-        } catch(Exception e){
+        } catch(IOException e){
            out.println(e.getMessage());
         }  
         
